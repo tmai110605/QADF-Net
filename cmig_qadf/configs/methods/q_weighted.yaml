@@ -1,0 +1,4 @@
+method_name: "q_weighted"
+display_name: "Q-Weighted Average"
+fusion_type: "q_weighted"
+token_dim: 128

@@ -1,0 +1,8 @@
+method_name: "qc_sca"
+display_name: "QADF-Net (QC-SCA)"
+fusion_type: "qc_sca"
+qc_mode: "all"               # "none", "scale_k", "scale_v", "bias_logq", "all"
+use_sink_token: true
+token_dim: 128
+num_heads: 4
+dropout: 0.1

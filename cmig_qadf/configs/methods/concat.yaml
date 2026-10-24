@@ -1,0 +1,4 @@
+method_name: "concat"
+display_name: "Concat Fusion"
+fusion_type: "concat"
+token_dim: 128

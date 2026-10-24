@@ -1,0 +1,6 @@
+method_name: "co_attn"
+display_name: "Co-Attention / Bilinear"
+fusion_type: "co_attn"
+token_dim: 128
+num_heads: 4
+dropout: 0.1

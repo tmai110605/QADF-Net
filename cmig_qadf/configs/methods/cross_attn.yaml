@@ -1,0 +1,8 @@
+method_name: "cross_attn"
+display_name: "Standard Cross-Attention"
+fusion_type: "cross_attn"
+qc_mode: "none"              # Do not use quality q
+use_sink_token: false
+token_dim: 128
+num_heads: 4
+dropout: 0.1

@@ -1,0 +1,66 @@
+# Default configuration for QADF-Net (CMIG)
+
+# 1. Data paths
+data:
+  root_dir: "."
+  deepdrid_dir: "DeepDRiD/regular_fundus_images"
+  aptos_dir: "Aptos"
+  idrid_dir: "IDRiD/B. Disease Grading"
+  ddr_dir: "DDR/DR_grading"
+  eyepacs_dir: "EyePACS"
+  protocol: "official"       # "official" or "group_cv"
+  cv_folds: 5
+  image_size: 448
+  use_clahe: true
+  clahe_clip: 2.0
+  clahe_tile: 8
+
+# 2. Model architecture
+model:
+  backbone: "efficientnet_b4" # "efficientnet_b4", "convnext_tiny", "swin_tiny"
+  feature_dim: 1792          # Automatically inferred from backbone
+  token_dim: 128
+  grid_size: 14              # 14x14 tokens
+  num_heads: 4
+  dropout: 0.1
+  q_min: 0.001
+  sink_bias_init: 0.0
+  beta_init: 1.0
+  head: "coral"              # Fixed CORAL head
+  num_classes: 5
+
+# 3. Quality source
+quality:
+  source: "learned"          # "learned" (q_hat), "oracle", "const1", "noisy"
+  noisy_sigma: 0.1
+  estimator_backbone: "mobilenet_v3_small"
+  estimator_input_size: 224
+  estimator_epochs: 25
+  estimator_lr: 0.0005
+
+# 4. Training
+train:
+  batch_size: 8
+  accum_steps: 4             # Effective batch size = 32
+  epochs: 60
+  warmup_epochs: 5
+  patience: 25
+  lr: 0.0003
+  weight_decay: 0.0001
+  grad_clip: 1.0
+  use_amp: true
+  num_workers: 4
+  train_mode: "train_clean"  # "train_clean" or "train_aug"
+  aug_degrade_prob: 0.5
+
+# 5. Evaluation & Statistics
+eval:
+  batch_size: 16
+  bootstrap_reps: 2000
+  ci_level: 0.95
+  save_sample_predictions: true
+
+# 6. Environment & Hardware
+hardware:
+  gpus: "0"
+  max_gpu_hours: 48.0

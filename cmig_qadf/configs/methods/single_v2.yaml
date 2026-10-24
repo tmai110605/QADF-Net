@@ -1,0 +1,4 @@
+method_name: "single_v2"
+display_name: "Single-View (Disc V2)"
+fusion_type: "single_v2"
+token_dim: 128

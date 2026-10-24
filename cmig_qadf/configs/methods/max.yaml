@@ -1,0 +1,4 @@
+method_name: "max"
+display_name: "Max Fusion"
+fusion_type: "max"
+token_dim: 128

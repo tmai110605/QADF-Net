@@ -1,0 +1,4 @@
+method_name: "best_single_learned"
+display_name: "Best Single-View (Learned Q-Hat)"
+fusion_type: "best_single_learned"
+token_dim: 128

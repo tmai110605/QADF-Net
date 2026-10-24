@@ -1,0 +1,4 @@
+method_name: "best_single_oracle"
+display_name: "Best Single-View (Oracle Q)"
+fusion_type: "best_single_oracle"
+token_dim: 128

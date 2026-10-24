@@ -1,0 +1,32 @@
+# Profile: FAST (Scientifically meaningful draft)
+profile: "fast"
+is_smoke: false
+watermark: ""
+
+data:
+  image_size: 448
+  subset_patients: null
+
+model:
+  backbone: "efficientnet_b4"
+  grid_size: 14
+
+quality:
+  estimator_epochs: 15
+  estimator_input_size: 224
+
+train:
+  batch_size: 8
+  accum_steps: 4
+  epochs: 30
+  warmup_epochs: 3
+  patience: 15
+
+eval:
+  bootstrap_reps: 500
+  degradation_levels: [0, 1, 2, 3, 4, 5]
+  degradation_types: ["gaussian_blur", "defocus", "motion_blur", "dark", "glare", "jpeg", "occlusion"]
+
+seeds: [42, 43, 44]
+methods: ["qc_sca", "concat", "average", "max", "q_weighted", "cross_attn", "single_v1", "single_v2"]
+backbones: ["efficientnet_b4"]

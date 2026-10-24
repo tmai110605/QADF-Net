@@ -1,0 +1,4 @@
+method_name: "average"
+display_name: "Average Fusion"
+fusion_type: "average"
+token_dim: 128

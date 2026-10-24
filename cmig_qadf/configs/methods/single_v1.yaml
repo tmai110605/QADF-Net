@@ -1,0 +1,4 @@
+method_name: "single_v1"
+display_name: "Single-View (Macula V1)"
+fusion_type: "single_v1"
+token_dim: 128

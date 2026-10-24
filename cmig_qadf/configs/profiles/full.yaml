@@ -1,0 +1,36 @@
+# Profile: FULL (Complete submission-ready E1-E10 pipeline)
+profile: "full"
+is_smoke: false
+watermark: ""
+
+data:
+  image_size: 448
+  subset_patients: null
+
+model:
+  backbone: "efficientnet_b4"
+  grid_size: 14
+
+quality:
+  estimator_epochs: 25
+  estimator_input_size: 224
+
+train:
+  batch_size: 8
+  accum_steps: 4
+  epochs: 60
+  warmup_epochs: 5
+  patience: 25
+
+eval:
+  bootstrap_reps: 2000
+  degradation_levels: [0, 1, 2, 3, 4, 5]
+  degradation_types: ["gaussian_blur", "defocus", "motion_blur", "dark", "glare", "jpeg", "occlusion"]
+
+seeds: [42, 43, 44, 45, 46]
+methods: [
+  "qc_sca", "concat", "average", "max",
+  "q_weighted", "cross_attn", "co_attn",
+  "single_v1", "single_v2", "best_single_oracle", "best_single_learned"
+]
+backbones: ["efficientnet_b4", "convnext_tiny", "swin_tiny"]
