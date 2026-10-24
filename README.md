@@ -70,11 +70,11 @@ We provide the **5 pretrained checkpoints** (across 5 independent random seeds: 
 
 | Model Checkpoint | Random Seed | Backbone | Clean QWK (Test) | Path |
 | :--- | :---: | :---: | :---: | :--- |
-| **QADF-Net Seed 42** | 42 | EfficientNet-B4 | 0.9038 | `checkpoints/qadf_net_seed42.pt` |
-| **QADF-Net Seed 43** | 43 | EfficientNet-B4 | 0.9056 | `checkpoints/qadf_net_seed43.pt` |
-| **QADF-Net Seed 44** | 44 | EfficientNet-B4 | 0.8997 | `checkpoints/qadf_net_seed44.pt` |
-| **QADF-Net Seed 45** | 45 | EfficientNet-B4 | 0.9022 | `checkpoints/qadf_net_seed45.pt` |
-| **QADF-Net Seed 46** | 46 | EfficientNet-B4 | 0.9024 | `checkpoints/qadf_net_seed46.pt` |
+| **QADF-Net Seed 42** | 42 | EfficientNet-B4 | 0.8831 | `checkpoints/qadf_net_seed42.pt` |
+| **QADF-Net Seed 43** | 43 | EfficientNet-B4 | 0.8736 | `checkpoints/qadf_net_seed43.pt` |
+| **QADF-Net Seed 44** | 44 | EfficientNet-B4 | 0.8724 | `checkpoints/qadf_net_seed44.pt` |
+| **QADF-Net Seed 45** | 45 | EfficientNet-B4 | 0.8742 | `checkpoints/qadf_net_seed45.pt` |
+| **QADF-Net Seed 46** | 46 | EfficientNet-B4 | 0.8995 | `checkpoints/qadf_net_seed46.pt` |
 | **Quality Estimator ($f_Q$)** | — | MobileNetV3-Small | $R^2=0.88$ | `checkpoints/q_estimator_best.pt` |
 
 > **Note**: All evaluation scripts automatically detect and load weights directly from the `checkpoints/` directory.
@@ -150,7 +150,7 @@ Evaluates the 5 pretrained checkpoints of the proposed QADF-Net on the clean tes
 # Evaluate proposed model across all 5 seeds on clean test images
 python evaluate_proposed.py --device cuda --data_dir DeepDRiD
 ```
-*Expected output: Mean QWK $\approx 0.9027 \pm 0.0020$, Ensemble QWK $> 0.9080$.*
+*Expected output: Mean QWK $\approx 0.8805 \pm 0.0102$ (95% CI: [0.8219, 0.9217]), Accuracy $\approx 68.70\% \pm 1.86\%$, Macro-AUC $\approx 0.9065 \pm 0.0052$, 5-Seed Ensemble QWK $\approx 0.8862$.*
 
 ---
 
@@ -201,14 +201,27 @@ python cmig_qadf/run_all.py --only S5
 
 ## 7. Results Summary
 
-Summary of proposed QADF-Net performance on the DeepDRiD test benchmark:
+Benchmark performance of the proposed **QADF-Net** on the DeepDRiD test cohort under the asymmetric degradation scenario (View 2 degraded, View 1 clean), exactly reproducing the manuscript results across seeds 42–46:
 
-| Metric | Clean ($L_0$) | Mild ($L_1$) | Moderate ($L_2$) | Marked ($L_3$) | Severe ($L_4$) | Extreme ($L_5$) |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **QWK (Mean $\pm$ Std)** | $0.9027 \pm 0.0020$ | $0.9008 \pm 0.0022$ | $0.8986 \pm 0.0025$ | $0.8967 \pm 0.0028$ | $0.8931 \pm 0.0033$ | $0.8906 \pm 0.0038$ |
-| **Harm Rate (%)** | $0.00\%$ | $1.15\%$ | $2.31\%$ | $3.46\%$ | $4.62\%$ | $5.77\%$ |
-| **Pair Flip Rate (%)**| $0.00\%$ | $1.92\%$ | $3.85\%$ | $5.77\%$ | $7.69\%$ | $9.62\%$ |
-| **Feature Drift (FDI)**| $0.000$ | $0.038$ | $0.076$ | $0.115$ | $0.153$ | $0.192$ |
+### A. Controlled Optical Degradation Benchmark (Table 4 in Manuscript)
+*Evaluated across 7 optical degradation types (Gaussian blur, defocus, motion blur, darkness, glare, JPEG, occlusion; $n=35$ evaluations per severity level, divisor $N$, $\text{ddof}=0$):*
+
+| Metric | Clean ($L_0$) | Level 1 | Level 2 | Level 3 | Level 4 | Level 5 (Extreme) | Mean $L_1$–$L_5$ | Change ($\Delta$) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **QWK ($\kappa_w$)** | $0.8805$ | $0.8755$ | $0.8682$ | $0.8621$ | $0.8584$ | $0.8565$ | $0.8641$ | $-0.0240$ |
+| **Harm Rate (%)** | $12.30\%$ | $12.59\%$ | $13.10\%$ | $13.96\%$ | $14.29\%$ | $14.49\%$ | $13.69\%$ | $+2.19\text{ pp}$ |
+| **Pair Flip Rate (PFR, %)** | $0.00\%$ | $13.97\%$ | $17.94\%$ | $20.89\%$ | $22.20\%$ | $21.84\%$ | $19.37\%$ | — |
+| **Feature Drift (FDI)** | $0.0000$ | $0.2747$ | $0.3707$ | $0.4256$ | $0.4686$ | $0.4793$ | $0.4038$ | — |
+
+### B. End-to-End Online $f_Q$ Estimation Pipeline (Table 6 in Manuscript)
+*Evaluated with continuous optical quality $(\hat{q}_1, \hat{q}_2)$ estimated autonomously by MobileNetV3:*
+
+| Metric | Clean ($L_0$) | Level 1 | Level 2 | Level 3 | Level 4 | Level 5 (Extreme) | Mean $L_1$–$L_5$ | Summary |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **QWK ($\kappa_w$)** | $0.8805$ | $0.8766$ | $0.8674$ | $0.8614$ | $0.8572$ | $0.8562$ | $0.8638$ | **AUDC** $= \mathbf{0.8662 \pm 0.0132}$ |
+| **Harm Rate (%)** | $12.30\%$ | $12.70\%$ | $13.40\%$ | $14.19\%$ | $14.34\%$ | $14.63\%$ | $13.85\%$ | $\mathbf{\Delta = +2.33\text{ pp}}$ |
+| **Pair Flip Rate (PFR, %)** | $0.00\%$ | $12.44\%$ | $18.59\%$ | $21.67\%$ | $23.47\%$ | $23.40\%$ | $19.91\%$ | — |
+| **Feature Drift (FDI)** | $0.0000$ | $0.2558$ | $0.3762$ | $0.4358$ | $0.4828$ | $0.5077$ | $0.4117$ | — |
 
 ---
 
