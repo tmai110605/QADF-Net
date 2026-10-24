@@ -15,10 +15,10 @@ In practical screening programs, **optical quality asymmetry** is pervasive: one
 
 ```
    View 1 (Clean)    ──► Backbone ──► Spatial Tokens (14x14) ──┐
-                                                                 ├──► QC-SCA Fusion ──► Fused Feature ──► DR Grade (0-4)
+                                                               ├──► QC-SCA Fusion ──► Fused Feature ──► DR Grade (0-4)
    View 2 (Degraded) ──► Backbone ──► Spatial Tokens (14x14) ──┤      (with Sinks)
-                                                                 │
-   Online f_Q (q1, q2) ──────────────────────────────────────────┘
+                                                               │
+   Online f_Q (q1, q2) ────────────────────────────────────────┘
 ```
 
 ### Proposed Methodology: QADF-Net
@@ -53,9 +53,7 @@ DR/
 │   ├── models/                # QADF-Net architecture, QC-SCA attention, and f_Q
 │   ├── data/                  # DeepDRiD adapter, patient splits, and degradation engine
 │   ├── eval/                  # Metrics (QWK, AUDC, Harm Rate, PFR, FDI) & Proposition 1
-│   ├── experiments/           # Benchmark scripts for degradation and harm analysis
-│   ├── report/                # Scientific summary and table generators
-│   └── tests/                 # Comprehensive unit test suite (17 tests)
+│   └── experiments/           # Benchmark scripts for degradation and harm analysis
 ├── DeepDRiD/                  # Dataset directory (contains placeholders and annotations)
 ├── results/                   # Generated evaluation outputs and tables (created at runtime)
 ├── evaluate_proposed.py       # Standalone evaluation script for proposed checkpoints
@@ -121,7 +119,7 @@ DeepDRiD/
 ### Prerequisites
 - Python 3.10+
 - PyTorch 2.0+ (CUDA recommended)
-- torchvision, timm, pandas, scipy, scikit-learn, pillow, pyyaml, pytest
+- torchvision, timm, pandas, scipy, scikit-learn, pillow, pyyaml
 
 ### Setup
 ```bash
@@ -130,12 +128,8 @@ git clone https://github.com/tmai110605/QADF-Net.git
 cd QADF-Net
 
 # Install required dependencies
-pip install torch torchvision timm pandas numpy scipy scikit-learn pillow pyyaml pytest
-
-# Verify installation with test suite
-python -m pytest cmig_qadf/tests
+pip install torch torchvision timm pandas numpy scipy scikit-learn pillow pyyaml
 ```
-All 17 unit tests should pass successfully.
 
 ---
 
