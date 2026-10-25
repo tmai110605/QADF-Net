@@ -2,6 +2,12 @@
 
 Official PyTorch implementation and pretrained weights for **"Quality-Aware Spatial Dual-View Fusion for Diabetic Retinopathy Grading under Quality Asymmetry"**.
 
+<p align="center">
+  <img src="overview.png" alt="QADF-Net Overview" width="100%" />
+</p>
+
+> **Core Intuition**: *"Attention must go somewhere. Give it somewhere to go."* In dual-view DR grading under optical asymmetry, unconstrained cross-attention forces corrupted features to be distributed across tokens. QADF-Net introduces quality-conditioned cross-attention with learnable zero-value sinks, allowing uninformative attention mass to safely drain away as optical quality degrades—guaranteeing that corrupted features do not contaminate clinical DR grading.
+
 ---
 
 ## 1. Paper Overview
