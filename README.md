@@ -1,5 +1,4 @@
-# QADF-Net: Quality-Aware Spatial Dual-View Fusion for Diabetic Retinopathy Grading under Quality Asymmetry
-
+# When One Fundus View Is Degraded: Measuring and Limiting the Harm of Dual-View Fusion in Diabetic Retinopathy Grading
 Official PyTorch implementation and pretrained weights for **"Quality-Aware Spatial Dual-View Fusion for Diabetic Retinopathy Grading under Quality Asymmetry"**.
 
 <p align="center">
