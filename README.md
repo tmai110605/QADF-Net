@@ -43,7 +43,7 @@ To solve this vulnerability, **QADF-Net** introduces:
 
 ## 2. Source Code Architecture
 
-The codebase is organized as a modular and reproducible research package under `cmig_qadf/`:
+The codebase is organized as a modular and reproducible research package under `qadfnet/`:
 
 ```
 DR/
@@ -54,7 +54,7 @@ DR/
 │   ├── qadf_net_seed45.pt
 │   ├── qadf_net_seed46.pt
 │   └── q_estimator_best.pt
-├── cmig_qadf/                 # Core research package
+├── qadfnet/                 # Core research package
 │   ├── models/                # QADF-Net architecture, QC-SCA attention, and f_Q
 │   ├── data/                  # DeepDRiD adapter, patient splits, and degradation engine
 │   ├── eval/                  # Metrics (QWK, AUDC, Harm Rate, PFR, FDI) & Proposition 1
@@ -162,7 +162,7 @@ Evaluates the proposed QADF-Net with the online optical quality estimator ($f_Q$
 
 ```bash
 # Run full degradation evaluation on proposed model (5 seeds)
-python cmig_qadf/experiments/eval_full_pipeline_online_fq.py \
+python qadfnet/experiments/eval_full_pipeline_online_fq.py \
     --methods qc_sca \
     --seeds 42,43,44,45,46 \
     --target_view v2 \
@@ -177,7 +177,7 @@ Computes the sample-level empirical harm rate ($\text{Harm} = \mathbb{I}\{\hat{y
 
 ```bash
 # Compute empirical harm rate for proposed model across all 5 seeds
-python cmig_qadf/experiments/compute_s2_real_harm.py \
+python qadfnet/experiments/compute_s2_real_harm.py \
     --methods qc_sca \
     --seeds 42 43 44 45 46 \
     --view v2 \
@@ -192,7 +192,7 @@ Validates the theoretical upper bound of Proposition 1 ($\|\text{Attn}_{1\leftar
 
 ```bash
 # Run Proposition 1 bound verification and spatial attention analysis (Stage S5)
-python cmig_qadf/run_all.py --only S5
+python qadfnet/run_all.py --only S5
 ```
 *Generates Proposition 1 empirical ratio metrics ($\text{Ratio} \le 1.0$ across all quality strata) and spatial attention analysis outputs.*
 

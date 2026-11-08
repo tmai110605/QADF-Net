@@ -24,11 +24,11 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
 
-from cmig_qadf.models.dualview_model import DualViewGradingModel
-from cmig_qadf.models.q_estimator import QEstimator
-from cmig_qadf.data.split import get_patient_splits
-from cmig_qadf.data.adapter import build_pair_records, DeepDRiDAdapterDataset, get_transforms
-from cmig_qadf.eval.metrics import compute_qwk, compute_accuracy, compute_auc, compute_per_class_kappa
+from qadfnet.models.dualview_model import DualViewGradingModel
+from qadfnet.models.q_estimator import QEstimator
+from qadfnet.data.split import get_patient_splits
+from qadfnet.data.adapter import build_pair_records, DeepDRiDAdapterDataset, get_transforms
+from qadfnet.eval.metrics import compute_qwk, compute_accuracy, compute_auc, compute_per_class_kappa
 
 
 def find_deepdrid_dir(base_dir: str = "DeepDRiD") -> str:
